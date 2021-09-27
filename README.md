@@ -1,3 +1,3 @@
-# Oyster Card
+# Oystercard
 
 # Motivation 
