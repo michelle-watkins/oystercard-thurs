@@ -18,6 +18,14 @@ describe Oystercard do
         expect{subject.top_up 1}.to raise_error "Maximum limit of £#{maximum_balance} reached."
       end 
     end
+
+    describe '#deduct' do
+      it { is_expected.to respond_to(:deduct).with(1).argument }
+
+      it 'should subtract an amount from the balance' do
+        expect(subject.deduct(10)).to eq ("You have used £10 of your balance.")
+      end
+    end
 end
 
     

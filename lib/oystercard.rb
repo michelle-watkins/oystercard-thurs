@@ -15,5 +15,10 @@ class Oystercard
         fail 'Maximum limit of £90 reached.' if top_up_amount + balance > MAXIMUM_BALANCE
         @balance += top_up_amount
         "You added a £#{top_up_amount} top-up."
+    end  
+    
+    def deduct(amount)
+        @balance -= amount
+        "You have used £#{amount} of your balance."
     end    
 end
