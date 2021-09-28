@@ -1,5 +1,6 @@
 class Oystercard
     MAXIMUM_BALANCE = 90
+    BALANCE_LIMIT = 5
 
     attr_reader :balance
     
@@ -21,4 +22,15 @@ class Oystercard
         @balance -= amount
         "You have used £#{amount} of your balance."
     end    
+
+    def in_journey?
+        @in_use = false
+    end
+
+    def touch_in
+        if @balance > BALANCE_LIMIT
+            @in_use = true
+        end
+    end
+
 end

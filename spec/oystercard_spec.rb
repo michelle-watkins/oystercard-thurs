@@ -26,6 +26,23 @@ describe Oystercard do
         expect(subject.deduct(10)).to eq ("You have used £10 of your balance.")
       end
     end
+
+    describe '#in_journey' do
+      it 'is initially not in a journey' do
+        expect(subject).not_to be_in_journey
+      end
+    end
+
+    describe 'touch_in' do
+      it 'can touch in' do
+        balance_limit = Oystercard::BALANCE_LIMIT
+        subject.top_up(10)
+        subject.touch_in
+        expect(subject).to be_in_journey
+
+      end
+
+    end
 end
 
     
