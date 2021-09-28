@@ -2,7 +2,7 @@ require "oystercard"
 
 describe Oystercard do
     it "intialise card balance" do
-        expect(subject.initialise).to eq(0)
+        expect(subject.initialise(0)).to eq(0)
     end
 
     describe '#top_up' do
@@ -14,7 +14,7 @@ describe Oystercard do
       # end
 
       it "adds an amount to the balance" do
-        subject.initialise
+        subject.initialise(0)
         expect(subject.top_up(10)).to eq 10
       end  
     end 
