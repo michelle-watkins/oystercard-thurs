@@ -10,9 +10,16 @@ describe Oystercard do
 
       it "add an amount to the balance" do
         expect(subject.top_up(10)).to eq ("You added a £10 top-up.")
+     end
+
+      it "send error if maximum limit reached" do
+        maximum_balance = Oystercard::MAXIMUM_BALANCE
+        subject.top_up(maximum_balance)
+        expect{subject.top_up 1}.to raise_error "Maximum limit of £#{maximum_balance} reached."
       end 
     end
 end
+
     
 
  
