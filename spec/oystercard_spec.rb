@@ -24,9 +24,10 @@ describe Oystercard do
     describe '#deduct' do
       it { is_expected.to respond_to(:deduct).with(1).argument }
 
-      # it 'should subtract an amount from the balance' do
-      #   expect(subject.deduct(10)).to eq ("You have used £10 of your balance.")
-      # end
+      it 'should subtract an amount from the balance' do
+        expect(subject.deduct(10)).to eq ("You have used £10 of your balance.")
+      end
+      
       it 'deducts an amount from the balance' do
         subject.top_up(20)
         expect {subject.deduct 3}.to change{subject.check_balance}.by -3
@@ -58,7 +59,7 @@ describe Oystercard do
       end
 
       it 'should deduct the minimum charge from the balance' do
-        expect(subject.touch_out).to change{subject.check_balance}.by (-Oystercard::MINIMUM_CHARGE)
+        expect{ subject.touch_out }.to change{ subject.check_balance }.by (-Oystercard::MINIMUM_CHARGE)
       end
     end
 end

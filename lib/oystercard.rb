@@ -22,7 +22,7 @@ class Oystercard
     
     def deduct(amount)
         @balance -= amount
-        # "You have used £#{amount} of your balance."
+        "You have used £#{amount} of your balance."
     end    
 
     def in_journey?
