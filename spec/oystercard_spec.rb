@@ -33,15 +33,22 @@ describe Oystercard do
       end
     end
 
-    describe 'touch_in' do
+    describe '#touch_in' do
       it 'can touch in' do
-        balance_limit = Oystercard::BALANCE_LIMIT
         subject.top_up(10)
-        subject.touch_in
-        expect(subject).to be_in_journey
-
+        expect(subject.touch_in).to eq("You have started your journey.")
       end
 
+      it 'cannot touch in' do
+        expect(subject.touch_in).to eq("You do not have enough balance on your card." ) 
+      end
+    end
+
+    describe '#touch_out' do
+      it 'can touch out' do
+        subject.touch_out
+        expect(subject).not_to be_in_journey
+      end
     end
 end
 
