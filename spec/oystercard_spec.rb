@@ -12,10 +12,10 @@ describe Oystercard do
         expect(subject.top_up(10)).to eq ("You added a £10 top-up.")
      end
 
-      it "should send error if maximum limit reached" do
+      it "should send an error if maximum limit reached" do
         maximum_balance = Oystercard::MAXIMUM_BALANCE
         subject.top_up(maximum_balance)
-        expect{subject.top_up 1}.to raise_error "Maximum limit of £#{maximum_balance} reached."
+        expect{subject.top_up 1}.to raise_error "Maximum limit of £#{maximum_balance} has been reached."
       end 
     end
 
@@ -34,13 +34,14 @@ describe Oystercard do
     end
 
     describe '#touch_in' do
+      it "should send an error if balance is less than the minimum balance" do
+        minimum_balance = Oystercard::MINIMUM_BALANCE
+        expect{subject.touch_in}.to raise_error "Minimum balance of £#{minimum_balance} needed."
+      end 
+
       it 'can touch in' do
         subject.top_up(10)
         expect(subject.touch_in).to eq("You have started your journey.")
-      end
-
-      it 'cannot touch in' do
-        expect(subject.touch_in).to eq("You do not have enough balance on your card." ) 
       end
     end
 
