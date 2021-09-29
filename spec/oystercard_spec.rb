@@ -51,7 +51,3 @@ describe Oystercard do
       end
     end
 end
-
-    
-
- 
