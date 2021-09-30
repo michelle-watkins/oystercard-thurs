@@ -71,8 +71,13 @@ I need to have the minimum amount for a single journey
 ```
 In order to pay for my journey
 As a customer
-I need to pay for my journey when it's complete
+When my journey is complete, I need the correct amount deducted from my card
 ```
+| Objects | Messages |
+|---------|----------|
+| Journey | |
+| Customer |  |
+| Card | deduct(MINIMUM_CHARGE) |
 ```
 In order to pay for my journey
 As a customer
