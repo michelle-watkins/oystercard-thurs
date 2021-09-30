@@ -83,6 +83,11 @@ In order to pay for my journey
 As a customer
 I need to know where I've travelled from
 ```
+| Objects | Messages |
+|---------|----------|
+| Journey | |
+| Customer |  |
+| Card | touch_in(entry_station) |
 ```
 In order to know where I have been
 As a customer
