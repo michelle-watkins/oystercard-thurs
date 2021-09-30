@@ -1,12 +1,12 @@
 require "oystercard"
 
 describe Oystercard do
-  let(:fake_station){double "Fake Vauxhall", name: "Fake station"}
-  let(:fake_exit_station){double "Fake Paddington", name: "Fake exit station"}
+  let(:fake_station) { double "Fake Vauxhall", name: "Fake station" }
+  let(:fake_exit_station) { double "Fake Paddington", name: "Fake exit station" }
 
   describe '#balance' do
     it "should intialise a new card with a balance of 0" do
-        expect(subject.balance).to eq(0)
+      expect(subject.balance).to eq(0)
     end
   end
 
@@ -20,7 +20,7 @@ describe Oystercard do
     it "should send an error if maximum limit reached" do
       maximum_balance = Oystercard::MAXIMUM_BALANCE
       subject.top_up(maximum_balance)
-      expect{subject.top_up 1}.to raise_error "Maximum limit of £#{maximum_balance} has been reached."
+      expect { subject.top_up 1 }.to raise_error "Maximum limit of £#{maximum_balance} has been reached."
     end 
   end
 
@@ -33,7 +33,7 @@ describe Oystercard do
     
     it 'deducts an amount from the balance' do
       subject.top_up(20)
-      expect {subject.deduct 3}.to change{subject.balance}.by -3
+      expect { subject.deduct 3 }.to change { subject.balance }.by -3
     end
   end
 
@@ -46,7 +46,7 @@ describe Oystercard do
   describe '#touch_in' do
     it "should send an error if balance is less than the minimum balance" do
       minimum_balance = Oystercard::MINIMUM_BALANCE
-      expect{subject.touch_in(fake_station)}.to raise_error "Minimum balance of £#{minimum_balance} needed."
+      expect { subject.touch_in(fake_station) }.to raise_error "Minimum balance of £#{minimum_balance} needed."
     end 
 
     it 'can touch in' do
@@ -68,7 +68,7 @@ describe Oystercard do
     end
 
     it 'should deduct the minimum charge from the balance' do
-      expect{ subject.touch_out(fake_exit_station) }.to change{ subject.balance }.by (-Oystercard::MINIMUM_CHARGE)
+      expect { subject.touch_out(fake_exit_station) }.to change { subject.balance }.by (-Oystercard::MINIMUM_CHARGE)
     end
 
     it 'should forget entry station on touch out' do
