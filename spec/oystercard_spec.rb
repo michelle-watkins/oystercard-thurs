@@ -2,6 +2,8 @@ require "oystercard"
 
 describe Oystercard do
   let(:fake_station){double "Fake Vauxhall", name: "Fake station"}
+  let(:fake_exit_station){double "Fake Paddington", name: "Fake exit station"}
+
   describe '#balance' do
     it "should intialise a new card with a balance of 0" do
         expect(subject.balance).to eq(0)
@@ -61,19 +63,41 @@ describe Oystercard do
 
   describe '#touch_out' do
     it 'can touch out' do
-      subject.touch_out
+      subject.touch_out(fake_exit_station)
       expect(subject).not_to be_in_journey
     end
 
     it 'should deduct the minimum charge from the balance' do
-      expect{ subject.touch_out }.to change{ subject.balance }.by (-Oystercard::MINIMUM_CHARGE)
+      expect{ subject.touch_out(fake_exit_station) }.to change{ subject.balance }.by (-Oystercard::MINIMUM_CHARGE)
     end
 
     it 'should forget entry station on touch out' do
-      subject.top_up(5)
-      subject.touch_in(fake_station)
-      subject.touch_out
+      one_completed_journey
       expect(subject.entry_station).to eq nil
     end
+
+    it 'should add journey to completed_journeys' do
+      one_completed_journey
+      expect(subject.completed_journeys).to include({ entry_station: fake_station, exit_station: fake_exit_station })
+      expect(subject.completed_journeys.length).to eq 1
+    end
+
+    def one_completed_journey
+      # this helper method saves us from writing the following 3 lines each time we need to complete one journey
+      subject.top_up(5)
+      subject.touch_in(fake_station)
+      subject.touch_out(fake_exit_station)
+    end
+
   end
+
+  describe '#completed_journeys' do
+    it { is_expected.to respond_to(:completed_journeys) }
+
+    it 'it has an empty list of journeys by default' do
+      expect(subject.completed_journeys).to eq []
+    end
+
+  end
+
 end
